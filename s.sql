@@ -1,0 +1,1 @@
+ SELECT "Product"."id", "Product"."name", "Product"."description", "count(Products"."id) as dibs_count", "dibs"."id" AS "dibs.id" FROM "Products" AS "Product" LEFT OUTER JOIN "ProductDibs" AS "dibs" ON "Product"."id" = "dibs"."productId" WHERE "Product"."useYn" = true GROUP BY "Users"."id", "Users"."name", "Users"."description" ORDER BY "Product"."undefined" DESC;
