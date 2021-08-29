@@ -5,13 +5,29 @@ import { ProductDibs } from "../models/product_dibs";
 import { ProductReview } from "../models/product_review";
 import { RefreshToken } from "../models/refresh_token";
 import { User } from "../models/user";
-import path = require("path")
+import path = require("path");
+import mybatisMapper = require("mybatis-mapper");
+const sequelize = new Sequelize("postgres://postgres:password@127.0.0.1:5432/postgres",
+{
+  dialect: "postgres",
+  dialectOptions: {
+    statement_timeout: 5000,
+    idle_in_transaction_session_timeout: 5000
+  },
+  define: {},
+  pool: {
+    max: 60,
+    min: 0,
+    idle: 10000,
+    acquire: 20000
+  },
+  logging: console.log,
 
-const sequelize = new Sequelize(process.env.SHOP_DATABASE_URL);
+});
 //sequelize.authenticate();
-const mybatisMapper = require("mybatis-mapper");
+
 const sqlPath = path.join(__dirname, "..", "..", ".", '/src/sql');
-console.log(sqlPath);
+console.log("sqlPath",sqlPath);
 mybatisMapper.createMapper([`${sqlPath}/product.xml`]);
 
 sequelize.addModels([User, RefreshToken, Product, ProductDibs, ProductReview]);

@@ -7,7 +7,7 @@ const api = require("./router");
 
 const app = express();
 
-DB.sequelize.sync({ force: true });
+//DB.sequelize.sync({ force: false });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
